@@ -13,11 +13,13 @@ angular.module("my_world")
         $scope.login = function(){
             AuthSvc.authenticate($scope.user)
                 .then(
-                    function(){
+                    function(result){
                         console.log("SUCCESS");
+                        console.log(result);
                     },
-                    function(){
-                        console.log("FAILURE");
+                    function(result){
+                        $scope.error = result;
+                        console.log(result);
                     }
                 );
         }

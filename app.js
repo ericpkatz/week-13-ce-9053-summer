@@ -9,6 +9,7 @@ var recursive = require('recursive-readdir');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var things = require("./routes/things");
+var session = require("./routes/session");
 
 require("./config/db").connect(function(err, conn){
   if(err)
@@ -49,6 +50,7 @@ app.use(function(req, res, next){
 app.use('/', routes);
 app.use('/users', users);
 app.use('/api/things', things);
+app.use('/api/session', session);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
