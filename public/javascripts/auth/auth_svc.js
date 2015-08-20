@@ -11,18 +11,19 @@ angular.module("my_world")
            $http.post("/api/session", user)
             .then(
                 function(response){
-                  // dfd.resolve(response.data); 
-                  $http.get("/api/session?token=" + response.data)
-                    .then(function(response){
-                        _user.username = response.data.username;
-                        _user.luckyNumber = response.data.luckyNumber;
-                        $location.path("/");
-                    })
-                },
-                function(response){
-                   dfd.reject(response.data); 
+                  return $http.get("/api/session?token=" + response.data);
                 }
-            );
+            )
+            .then(function(response){
+                _user.username = response.data.username;
+                _user.luckyNumber = response.data.luckyNumber;
+            })
+            .then(function(){
+                $location.path("/");
+            })
+            .catch(function(response){
+                   dfd.reject(response.data); 
+            });
            return dfd.promise;
         }
         

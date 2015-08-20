@@ -1,6 +1,7 @@
 angular.module("my_world")
-    .controller("ThingsCtrl", function($scope, ThingsSvc, NavSvc){
+    .controller("ThingsCtrl", function($scope, ThingsSvc, NavSvc, AuthSvc){
         NavSvc.setSelectedPath("/things");
+        $scope.canDelete = AuthSvc.user.authenticated();
         
         function activate(){
             ThingsSvc.getThings()

@@ -6,7 +6,7 @@
       <br />
       {{ thing.price | currency }}
       <br />
-      <button class="btn btn-warning" ng-click="delete(thing)">Delete</button>
+      <button ng-show='canDelete' class="btn btn-warning" ng-click="delete(thing)">Delete</button>
       <br />
       <a href="/things/{{thing._id}}/edit">Edit</a>
    </li> 
