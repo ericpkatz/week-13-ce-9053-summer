@@ -52,7 +52,8 @@ angular.module("my_world")
            user: _user,
            logout: logout,
            authenticate: authenticate,
-           tryLogin: tryLogin
+           tryLogin: tryLogin,
+           getToken: getToken
         }
         
         

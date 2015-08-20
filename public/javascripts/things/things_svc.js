@@ -1,5 +1,5 @@
 angular.module("my_world")
-    .factory("ThingsSvc", function($q, $http){
+    .factory("ThingsSvc", function($q, $http, AuthSvc){
          function getThings(){
              var dfd = $q.defer();
              $http.get("/api/things")
@@ -32,7 +32,7 @@ angular.module("my_world")
          }
          function deleteThing(thing){
              var dfd = $q.defer();
-             $http.post("/api/things/" + thing._id + "/delete")
+             $http.post("/api/things/" + thing._id + "/delete?token=" + AuthSvc.getToken())
                 .then( function(){
                    dfd.resolve(); 
                 })

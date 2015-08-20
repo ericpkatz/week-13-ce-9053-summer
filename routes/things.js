@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Thing = require("../models/things")
+var jwt = require("jwt-simple");
 
 router.get("/", function(req, res){
    Thing.find({}).then(function(things){
@@ -26,7 +27,17 @@ router.post("/", function(req, res){
    });
 });
 
-router.post("/:id/delete", function(req, res){
+function checkAuthentication(req, res, next){
+   try{
+      jwt.decode(req.query.token, process.env.SECRET || 'foo');
+      next();
+   }
+   catch(ex){
+     res.status(401).send("not authorized"); 
+   }
+}
+router.post("/:id/delete", checkAuthentication, function(req, res){
+   
    Thing.remove({_id: req.params.id}, function(err){
       if(err){
          res.status(422); 
