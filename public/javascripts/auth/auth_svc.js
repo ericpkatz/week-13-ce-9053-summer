@@ -1,23 +1,23 @@
 angular.module("my_world")
-    .factory("AuthSvc", function($q, $http, $location){
+    .factory("AuthSvc", function($q, $http, $location, $window){
         var _user = {
             authenticated: function(){
                 return !!this.username;
             }
         };
         
+        function setUser(response){
+            _user.username = response.data.username;
+            _user.luckyNumber = response.data.luckyNumber;
+        }
         function authenticate(user){
            var dfd = $q.defer(); 
            $http.post("/api/session", user)
-            .then(
-                function(response){
-                  return $http.get("/api/session?token=" + response.data);
-                }
-            )
             .then(function(response){
-                _user.username = response.data.username;
-                _user.luckyNumber = response.data.luckyNumber;
+                  $window.sessionStorage.setItem("token", response.data );
             })
+            .then(getUser)
+            .then(setUser)
             .then(function(){
                 $location.path("/");
             })
@@ -27,9 +27,32 @@ angular.module("my_world")
            return dfd.promise;
         }
         
+        function tryLogin(){
+            if(getToken()){
+                getUser() 
+                    .then(setUser);
+            }
+            
+        }
+        
+        function logout(){
+            $window.sessionStorage.removeItem('token');
+            _user.username = null;
+            $location.path("/");
+        }
+        
+        function getToken(){
+            return $window.sessionStorage.getItem("token");
+        }
+        
+        function getUser(){
+            return $http.get("/api/session?token=" + getToken());
+        }
         return {
            user: _user,
-           authenticate: authenticate
+           logout: logout,
+           authenticate: authenticate,
+           tryLogin: tryLogin
         }
         
         

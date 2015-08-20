@@ -2,8 +2,7 @@ angular.module("my_world")
     .controller("LoginCtrl", function($scope, $location, NavSvc, AuthSvc){
         console.log(AuthSvc.user.authenticated())
         if(AuthSvc.user.authenticated()){
-            AuthSvc.user.username = null;
-            $location.path("/");
+            AuthSvc.logout();
             return;
         }
         NavSvc.setSelectedPath("/login");
