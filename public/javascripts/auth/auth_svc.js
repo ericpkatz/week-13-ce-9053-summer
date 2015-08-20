@@ -1,5 +1,5 @@
 angular.module("my_world")
-    .factory("AuthSvc", function($q, $http){
+    .factory("AuthSvc", function($q, $http, $location){
         var _user = {
             authenticated: function(){
                 return !!this.username;
@@ -11,7 +11,13 @@ angular.module("my_world")
            $http.post("/api/session", user)
             .then(
                 function(response){
-                   dfd.resolve(response.data); 
+                  // dfd.resolve(response.data); 
+                  $http.get("/api/session?token=" + response.data)
+                    .then(function(response){
+                        _user.username = response.data.username;
+                        _user.luckyNumber = response.data.luckyNumber;
+                        $location.path("/");
+                    })
                 },
                 function(response){
                    dfd.reject(response.data); 
