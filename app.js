@@ -18,13 +18,16 @@ require("./config/db").connect()
     console.log(err);
   });
 
-require("./config/db")
-  .seed()
-    .then(function(data){
-      console.log(data);
-    });
+// require("./config/db")
+  // .seed()
+    // .then(function(data){
+      // console.log(data);
+    // });
 
 var app = express();
+
+module.exports = app;
+
 app.locals.pretty = true;
 
 // view engine setup

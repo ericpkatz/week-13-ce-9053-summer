@@ -18,7 +18,9 @@
     "mongoose": "^4.1.1",
     "morgan": "~1.6.1",
     "recursive-readdir": "^1.2.1",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "supertest": "^1.1.0",
+    "supertest-as-promised": "^2.0.2"
   },
   "description": "- npm install express-generator - express <name of your app>",
   "main": "app.js",
