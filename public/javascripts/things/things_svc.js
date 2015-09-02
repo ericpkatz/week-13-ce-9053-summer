@@ -32,7 +32,11 @@ angular.module("my_world")
          }
          function deleteThing(thing){
              var dfd = $q.defer();
-             $http.post("/api/things/" + thing._id + "/delete?token=" + AuthSvc.getToken())
+             $http({
+               url: "/api/things/" + thing._id + "/delete",
+               headers: { 'auth': AuthSvc.getToken() },
+               method: 'POST'
+             })
                 .then( function(){
                    dfd.resolve(); 
                 })
