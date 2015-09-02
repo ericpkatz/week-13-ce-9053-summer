@@ -1,15 +1,16 @@
 var mongoose = require("mongoose");
+var Promise = require('bluebird');
 
 module.exports = {
     connect: connect
 };
 
-function connect(cb){
-    mongoose.connect(process.env.CONN || "mongodb://localhost:27017/my_world");
-    mongoose.connection.on("open", function(){
-        cb(null, "done");
+function connect(){
+  return new Promise(function(resolve, reject){
+    mongoose.connect(process.env.CONN || "mongodb://localhost:27017/my_world", function(err){
+      if(err)
+        return reject(err);
+      resolve(mongoose.connection.name);
     });
-    mongoose.connection.on("error", function(err){
-        cb(err, null);
-    });
+  });
 }

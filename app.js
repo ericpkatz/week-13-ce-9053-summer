@@ -11,12 +11,13 @@ var users = require('./routes/users');
 var things = require("./routes/things");
 var session = require("./routes/session");
 
-require("./config/db").connect(function(err, conn){
-  if(err)
+require("./config/db").connect()
+  .then(function(dbName){
+    console.log('connected to ' + dbName);
+  })
+  .catch(function(err){
     console.log(err);
-  else
-    console.log("connected");
-});
+  });
 
 
 
