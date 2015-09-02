@@ -25,6 +25,7 @@ require("./config/db").connect()
     // });
 
 var app = express();
+console.log('starting');
 
 module.exports = app;
 
@@ -37,6 +38,13 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+
+app.use(function(req, res, next){
+  res.locals.env = app.get('env');
+  console.log(app.get('env'));
+  next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
