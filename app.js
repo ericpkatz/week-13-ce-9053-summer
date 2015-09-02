@@ -18,6 +18,12 @@ require("./config/db").connect()
     console.log(err);
   });
 
+require("./config/db")
+  .seed()
+    .then(function(data){
+      console.log(data);
+    });
+
 var app = express();
 app.locals.pretty = true;
 

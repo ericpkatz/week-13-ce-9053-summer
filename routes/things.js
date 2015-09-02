@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var Thing = require("../models/things")
+var Thing = require("../models/thing")
 var jwt = require("jwt-simple");
 
 router.get("/", function(req, res){
