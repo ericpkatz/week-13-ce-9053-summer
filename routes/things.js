@@ -28,7 +28,6 @@ router.post("/", function(req, res){
 });
 
 function checkAuthentication(req, res, next){
-  console.log(req.headers);
    try{
       jwt.decode(req.headers.auth, process.env.SECRET || 'foo');
       next();

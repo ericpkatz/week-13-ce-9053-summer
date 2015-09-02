@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var recursive = require('recursive-readdir');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 var things = require("./routes/things");
 var session = require("./routes/session");
 
@@ -43,13 +42,11 @@ app.use(function(req, res, next){
     })
     res.locals.scripts = scripts;
     next();
-  // Files is an array of filename 
   });
 })
 
 
 app.use('/', routes);
-app.use('/users', users);
 app.use('/api/things', things);
 app.use('/api/session', session);
 
