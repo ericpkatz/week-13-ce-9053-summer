@@ -41,7 +41,6 @@ app.use(logger('dev'));
 
 app.use(function(req, res, next){
   res.locals.env = app.get('env');
-  console.log(app.get('env'));
   next();
 });
 
