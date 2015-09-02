@@ -18,8 +18,6 @@ require("./config/db").connect()
     console.log(err);
   });
 
-
-
 var app = express();
 app.locals.pretty = true;
 
