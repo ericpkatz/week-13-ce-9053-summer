@@ -5,12 +5,11 @@ module.exports = {
 };
 
 function connect(cb){
-    mongoose.connect("mongodb://localhost:27017/my_world");
+    mongoose.connect(process.env.CONN || "mongodb://localhost:27017/my_world");
     mongoose.connection.on("open", function(){
         cb(null, "done");
     });
     mongoose.connection.on("error", function(err){
         cb(err, null);
     });
-    
 }
